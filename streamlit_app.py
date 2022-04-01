@@ -1,14 +1,21 @@
 import streamlit as st
 import duckdb
-import pyarrow
+from urllib.request import urlretrieve
 import pyarrow.dataset as ds
 
 
-def get_dataset():
-    return ds.dataset('s3://ursa-labs-taxi-data/2019/06/')
+@st.cache
+def download_dataset():
+    url = 'https://github.com/cwida/duckdb-data/releases/download/v1.0/lineitemsf1.snappy.parquet'
+    dst = 'lineitemsf1.snappy.parquet'
+    urlretrieve(url, dst)
+    return dst
 
-nyc_dataset = get_dataset()
+
+download_dataset()
 con = duckdb.connect()
-query = con.execute("SELECT * FROM nyc_dataset limit 10")
+query = con.execute("""SELECT sum(l_extendedprice * l_discount) AS revenue
+                FROM
+                'lineitemsf1.snappy.parquet';""")
 
 st.write(query.fetchdf())
