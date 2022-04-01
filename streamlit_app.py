@@ -63,7 +63,7 @@ run_timed_query(
     "This query reads very little from the file as it filters on more columns",
     """SELECT sum(l_extendedprice * l_discount) AS revenue
     FROM
-        lineitem
+        'lineitemsf1.snappy.parquet'
     WHERE
         l_shipdate >= CAST('1994-01-01' AS date)
         AND l_shipdate < CAST('1995-01-01' AS date)
