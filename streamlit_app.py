@@ -4,9 +4,8 @@ import pyarrow
 import pyarrow.dataset as ds
 
 
-@st.cache(hash_funcs={pyarrow.lib.Buffer: lambda _: None})
 def get_dataset():
-    return ds.dataset('s3://ursa-labs-taxi-data/', partitioning=["year", "month"])
+    return ds.dataset('s3://ursa-labs-taxi-data/2019/06/')
 
 nyc_dataset = get_dataset()
 con = duckdb.connect()
