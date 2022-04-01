@@ -10,7 +10,7 @@ def get_connection():
 
 @st.cache
 def get_dataset():
-    return ds.dataset('s3://ursa-labs-taxi-data/nyc-taxi/', partitioning=["year", "month"])
+    return ds.dataset('s3://ursa-labs-taxi-data/', partitioning=["year", "month"])
 
 
 nyc_dataset = get_dataset()
