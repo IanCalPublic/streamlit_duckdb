@@ -29,4 +29,4 @@ connection = duckdb.connect()
 
 run_timed_query("Simple aggregation", "This query uses projection pushdown",
 """SELECT sum(l_extendedprice * l_discount) AS revenue
-    FROM 'lineitemsf1.snappy.parquet';""")
+    FROM 'lineitemsf1.snappy.parquet';""", connection)
